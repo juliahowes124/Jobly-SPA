@@ -8,19 +8,23 @@ App - state: loggedin?
 
     CompanyList - state: [companies], companyFilter
 
-      SearchBar - props: filterHandler(), companySetter
+      SearchBar - props: filterHandler, companySetter
 
       CompanyCard - props: company
 
     CompanyDetails - state: [jobs]
 
-      JobCard - props: job
+      JobList - props: jobs
+
+        JobCard - props: job
 
     JobList - state: jobs, jobFilter
 
-      SearchBar - prop: filterHandler(), jobSetter
+      SearchBar - prop: filterHandler, jobSetter
 
-      JobCard - props: job
+      JobCardList - props: jobs
+
+        JobList - props job
 
     LoginSignupForm - props: [fields], setLoggedIn()
 
