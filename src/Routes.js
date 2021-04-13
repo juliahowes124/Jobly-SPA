@@ -12,7 +12,7 @@ import Home from "./Home";
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/companies/:company">
+      <Route exact path="/companies/:handle">
         <CompanyDetail />
       </Route>
       <Route exact path="/companies">

@@ -9,14 +9,19 @@ function SearchBar({handleFilter, filterType}) {
     setSearchTerm(evt.target.value);
   }
 
-  async function filterCompanies(evt) {
+  async function filter(evt) {
     evt.preventDefault();
-    let companies = await JoblyApi.getCompanies(searchTerm);
-    handleFilter(companies);
+    if(filterType === "companies") {
+      let companies = await JoblyApi.getCompanies(searchTerm);
+      handleFilter(companies);
+    } else {
+      let jobs = await JoblyApi.getJobs(searchTerm);
+      handleFilter(jobs);
+    }
   }
 
   return (
-    <form onSubmit={filterCompanies}>
+    <form onSubmit={filter}>
       <input onChange={handleChange} value={searchTerm}/>
       <button>Submit</button>
     </form>

@@ -4,7 +4,7 @@ import CompanyCard from './CompanyCard';
 import SearchBar from './SearchBar';
 
 function CompanyList() {
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState(null);
 
 
   useEffect(() => {
@@ -21,15 +21,19 @@ function CompanyList() {
 
   return (
     <div>
-      <div>
-        <SearchBar handleFilter={handleFilter} filterType="companies"/>
-      </div>
-      <div>
-        {companies.length
-        ? companies.map(c => <CompanyCard key={c.handle} company={c}/>)
-        : 'Sorry, no results were found!'
-        }
-      </div>
+      {companies ? 
+      <>
+        <div>
+          <SearchBar handleFilter={handleFilter} filterType="companies"/>
+        </div>
+        <div>
+          {companies.length
+          ? companies.map(c => <CompanyCard key={c.handle} company={c}/>)
+          : 'Sorry, no results were found!'
+          }
+        </div>
+      </>
+    : <h2>Loading...</h2>}
     </div>
   )
 }
