@@ -15,11 +15,11 @@ function CompanyDetail() {
       setCompany(companyFromAPI);
     }
     fetchCompanyData();
-  }, [])
+  }, [handle])
 
   return (
     <div>
-      {company 
+      {company
       ? <div>
           <h1>{company.name}</h1>
           <p>{company.description}</p>

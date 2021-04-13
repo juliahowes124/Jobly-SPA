@@ -1,14 +1,57 @@
 import Routes from "./Routes";
 import Nav from "./Nav";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useHistory} from "react-router-dom";
+import {useEffect, useState} from "react"
 import "bootstrap/dist/css/bootstrap.css";
+import JoblyApi from "./api"
+import jwt from "jsonwebtoken"
+
 
 function App() {
+  const [userToken, setUserToken] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const history = useHistory();
+
+  async function login(userInfo) {
+    const token = await JoblyApi.login(userInfo);
+    if (token) {
+      setUserToken(token);
+      return true;
+    } else {
+      return false
+    }
+
+  }
+
+  function logout() {
+    setUserToken(null);
+    JoblyApi.logout();
+  }
+
+  async function register(userInfo) {
+    const token = await JoblyApi.register(userInfo);
+    setUserToken(token);
+  }
+
+  useEffect( () => {
+    async function fetchUser(username) {
+      let user = await JoblyApi.getUser(username);
+      setCurrentUser(user);
+    }
+    const userFromToken= jwt.decode(userToken);
+    if (userFromToken) {
+      fetchUser(userFromToken.username)
+    } else {
+      setCurrentUser(null);
+    }
+
+  }, [userToken])
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav />
-        <Routes/>
+        <Nav logout={logout}/>
+        <Routes login={login} register={register}/>
       </BrowserRouter>
     </div>
   );

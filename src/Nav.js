@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 
-function Nav() {
+function Nav({logout}) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink className="navbar-brand" exact to="/">Jobly</NavLink>
@@ -20,6 +20,9 @@ function Nav() {
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" exact to="/login">Login</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" exact to="/logout" onClick={logout}>Logout</NavLink>
           </li>
         </ul>
       </div>
