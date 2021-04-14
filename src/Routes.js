@@ -10,7 +10,7 @@ import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute"
 
 
-function Routes({login, logout, register, currUser}) {
+function Routes({login, logout, register, currUser, updateUser}) {
   return (
     <Switch>
       <ProtectedRoute currUser={currUser} path="/companies/:handle">
@@ -23,7 +23,7 @@ function Routes({login, logout, register, currUser}) {
         <JobList />
       </ProtectedRoute>
       <ProtectedRoute currUser={currUser} path="/profile">
-        <ProfileForm />
+        <ProfileForm updateUser={updateUser} currUser={currUser}/>
       </ProtectedRoute>
       <Route path="/login">
         <LoginForm login={login}/>
