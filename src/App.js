@@ -1,50 +1,59 @@
 import Routes from "./Routes";
 import Nav from "./Nav";
-import {BrowserRouter, useHistory} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {useEffect, useState} from "react"
 import "bootstrap/dist/css/bootstrap.css";
 import JoblyApi from "./api"
 import jwt from "jsonwebtoken"
+import useLocalStorage from "./hooks/LocalStorageHook";
 
 
 function App() {
-  const [userToken, setUserToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-  const history = useHistory();
+  const [localToken, setLocalToken] = useLocalStorage("token", null);
 
   async function login(userInfo) {
     const token = await JoblyApi.login(userInfo);
     if (token) {
-      setUserToken(token);
-      return true; 
-    } 
+      setLocalToken(token);
+      return true;
+    }
     return false
 
   }
 
   function logout() {
-    setUserToken(null);
+    setLocalToken(null);
     JoblyApi.logout();
   }
 
   async function register(userInfo) {
     const token = await JoblyApi.register(userInfo);
-    setUserToken(token);
+    setLocalToken(token);
   }
+
+  useEffect( () => {
+    if (localToken) {
+      JoblyApi.updateToken(localToken);
+    } else {
+      JoblyApi.updateToken(undefined);
+    }
+  }, [localToken]);
 
   useEffect( () => {
     async function fetchUser(username) {
       let user = await JoblyApi.getUser(username);
       setCurrentUser(user);
     }
-    const userFromToken= jwt.decode(userToken);
+    const userFromToken= jwt.decode(localToken);
     if (userFromToken) {
-      fetchUser(userFromToken.username)
+      fetchUser(userFromToken.username);
     } else {
       setCurrentUser(null);
+      setLocalToken(null);
     }
 
-  }, [userToken])
+  }, [localToken, setLocalToken]);
 
   return (
     <div className="App">
@@ -55,5 +64,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

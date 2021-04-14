@@ -89,6 +89,10 @@ class JoblyApi {
     JoblyApi.token = null;
   }
 
+  static updateToken(token) {
+    JoblyApi.token=token;
+  }
+
 }
 
 // for now, put token ("testuser" / "password" on class)

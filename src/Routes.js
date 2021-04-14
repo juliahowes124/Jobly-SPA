@@ -7,30 +7,31 @@ import LoginForm from "./LoginForm";
 import ProfileForm from "./ProfileForm";
 import SignupForm from "./SignupForm";
 import Home from "./Home";
+import ProtectedRoute from "./ProtectedRoute"
 
 
 function Routes({login, logout, register, currUser}) {
   return (
     <Switch>
-      <Route exact path="/companies/:handle">
+      <ProtectedRoute currUser={currUser} path="/companies/:handle">
         <CompanyDetail />
-      </Route>
-      <Route exact path="/companies">
+      </ProtectedRoute>
+      <ProtectedRoute currUser={currUser} path="/companies">
         <CompanyList />
-      </Route>
-      <Route exact path="/jobs">
+      </ProtectedRoute>
+      <ProtectedRoute currUser={currUser} path="/jobs">
         <JobList />
-      </Route>
-      <Route exact path="/login">
+      </ProtectedRoute>
+      <ProtectedRoute currUser={currUser} path="/profile">
+        <ProfileForm />
+      </ProtectedRoute>
+      <Route path="/login">
         <LoginForm login={login}/>
       </Route>
-      <Route exact path="/profile">
-        <ProfileForm />
-      </Route>
-      <Route exact path="/signup">
+      <Route path="/signup">
         <SignupForm register={register}/>
       </Route>
-      <Route exact path="/">
+      <Route path="/">
         <Home currUser={currUser}/>
       </Route>
       <Route>
