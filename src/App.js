@@ -16,10 +16,9 @@ function App() {
     const token = await JoblyApi.login(userInfo);
     if (token) {
       setUserToken(token);
-      return true;
-    } else {
-      return false
-    }
+      return true; 
+    } 
+    return false
 
   }
 
@@ -50,8 +49,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav logout={logout}/>
-        <Routes login={login} register={register}/>
+        <Nav logout={logout} currUser={currentUser}/>
+        <Routes login={login} register={register} currUser={currentUser}/>
       </BrowserRouter>
     </div>
   );

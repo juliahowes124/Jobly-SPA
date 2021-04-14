@@ -4,7 +4,7 @@ import Alert from "./Alert";
 
 function LoginForm({login}) {
   const [formData, setFormData] = useState({username:"", password:""});
-  const [error , setError] = useState(false);
+  const [error , setError] = useState(null);
   const history = useHistory();
 
   function handleChange(evt) {
@@ -26,6 +26,7 @@ function LoginForm({login}) {
     }
   }
 
+  //refactor this
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="username">Username</label>
