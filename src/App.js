@@ -21,6 +21,11 @@ function App() {
 
   }
 
+  async function applyToJob(jobId) {
+    await JoblyApi.applyToJob(currentUser.username, jobId);
+    setCurrentUser((currentUser) => ({...currentUser, applications:[...currentUser.applications, jobId]}))
+  }
+
   async function login(userInfo) {
     const token = await JoblyApi.login(userInfo);
     if (token) {
@@ -70,7 +75,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Nav logout={logout} currUser={currentUser}/>
-        <UserContext.Provider value={{login, register, currUser: currentUser, updateUser}}>
+        <UserContext.Provider value={{login, register, currUser: currentUser, updateUser, applyToJob}}>
           <Routes/>
         </UserContext.Provider>
       </BrowserRouter>
