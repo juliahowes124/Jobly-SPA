@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import Alert from './Alert';
+import UserContext from "./userContext";
 
-function SignupForm({register}) {
+function SignupForm() {
+  const {register} = useContext(UserContext);
   const [formData, setFormData] = useState({ username: "",
                                              password: "",
                                              firstName: "",

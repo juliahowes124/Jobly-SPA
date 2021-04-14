@@ -10,29 +10,29 @@ import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute"
 
 
-function Routes({login, logout, register, currUser, updateUser}) {
+function Routes() {
   return (
     <Switch>
-      <ProtectedRoute currUser={currUser} path="/companies/:handle">
+      <ProtectedRoute path="/companies/:handle">
         <CompanyDetail />
       </ProtectedRoute>
-      <ProtectedRoute currUser={currUser} path="/companies">
+      <ProtectedRoute path="/companies">
         <CompanyList />
       </ProtectedRoute>
-      <ProtectedRoute currUser={currUser} path="/jobs">
+      <ProtectedRoute path="/jobs">
         <JobList />
       </ProtectedRoute>
-      <ProtectedRoute currUser={currUser} path="/profile">
-        <ProfileForm updateUser={updateUser} currUser={currUser}/>
+      <ProtectedRoute path="/profile">
+        <ProfileForm/>
       </ProtectedRoute>
       <Route path="/login">
-        <LoginForm login={login}/>
+        <LoginForm />
       </Route>
       <Route path="/signup">
-        <SignupForm register={register}/>
+        <SignupForm/>
       </Route>
       <Route path="/">
-        <Home currUser={currUser}/>
+        <Home/>
       </Route>
       <Route>
         <Redirect to="/"></Redirect>

@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Link} from 'react-router-dom';
+import UserContext from "./userContext";
 
-function Home({currUser}) {
+function Home() {
+    const {currUser} = useContext(UserContext);
+
     return(
         <>
         <h1>Jobly</h1>

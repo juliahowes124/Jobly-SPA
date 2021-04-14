@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Alert from "./Alert";
+import UserContext from "./userContext";
 
-function LoginForm({login}) {
+function LoginForm() {
+  const {login} = useContext(UserContext)
   const [formData, setFormData] = useState({username:"", password:""});
   const [error , setError] = useState(null);
   const history = useHistory();

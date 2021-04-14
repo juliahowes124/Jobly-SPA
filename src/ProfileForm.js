@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import Alert from './Alert';
+import UserContext from "./userContext";
 
-function ProfileForm({ currUser, updateUser }) {
+function ProfileForm() {
+  const {currUser, updateUser} = useContext(UserContext);
+
   const initialState = {
     firstName: currUser.firstName,
     lastName: currUser.lastName,
@@ -24,7 +27,6 @@ function ProfileForm({ currUser, updateUser }) {
     evt.preventDefault();
     try {
       await updateUser(formData);
-      setFormData(initialState);
       setAlerts(a => [...a, { msg: "Updated successfully!", status: "success" }])
     } catch (err) {
       setAlerts(a => [...a, { msg: err }])

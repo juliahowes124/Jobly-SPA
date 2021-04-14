@@ -6,11 +6,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import JoblyApi from "./api"
 import jwt from "jsonwebtoken"
 import useLocalStorage from "./hooks/LocalStorageHook";
+import UserContext from "./userContext";
 
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [localToken, setLocalToken] = useLocalStorage("token", null);
+  const [isLoading, setIsLoading] = useState(true);
 
 
   async function updateUser(userData) {
@@ -43,8 +45,11 @@ function App() {
     async function fetchUser(username) {
       let user = await JoblyApi.getUser(username);
       setCurrentUser(user);
+      setIsLoading(false);
     }
+    setIsLoading(true);
     const userFromToken= jwt.decode(localToken);
+    console.log('local storage user', userFromToken);
     if (userFromToken) {
       JoblyApi.updateToken(localToken);
       fetchUser(userFromToken.username);
@@ -52,17 +57,25 @@ function App() {
       setCurrentUser(null);
       setLocalToken(null);
       JoblyApi.updateToken(undefined);
+      setIsLoading(false);
     }
   }, [localToken]);
   //why setLocalToken as dependency caused infinite loop?
 
+  //QUESTION wrap Provider around Nav too?
   return (
+    isLoading ? (
+      <h2>Loading...</h2>
+    ) : (
     <div className="App">
       <BrowserRouter>
         <Nav logout={logout} currUser={currentUser}/>
-        <Routes login={login} register={register} currUser={currentUser} updateUser={updateUser}/>
+        <UserContext.Provider value={{login, register, currUser: currentUser, updateUser}}>
+          <Routes/>
+        </UserContext.Provider>
       </BrowserRouter>
     </div>
+  )
   );
 }
 
