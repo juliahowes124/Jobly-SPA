@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import {useLocation, Link, useHistory} from 'react-router-dom';
 import JoblyApi from './api';
 import CompanyCard from './CompanyCard';
 import SearchBar from './SearchBar';
 
 function CompanyList() {
   const [companies, setCompanies] = useState(null);
-  const [page, setPage] = useState(1);
-  const ITEMS_PER_PAGE = 20;
+  let query = useQuery();
+  const page = query.get('page') || 1;
+  const ITEMS_PER_PAGE = 20; // w/ items per page in query, or prop
+  const history = useHistory();
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -15,14 +18,18 @@ function CompanyList() {
     }
     fetchCompanies();
   }, [])
-
-  //do these functions get defined every time?
+  //backend is better w/query params
 
   function calcMaxPages() {
     return Math.ceil(companies.length / ITEMS_PER_PAGE);
   }
 
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
   function handleFilter(filteredCompanies) {
+    history.push('/companies');
     setCompanies(filteredCompanies);
   }
 
@@ -30,14 +37,7 @@ function CompanyList() {
     return companies.slice(ITEMS_PER_PAGE*(page-1), ITEMS_PER_PAGE*page);
   }
 
-  function handlePrev() {
-    setPage(p => p-1);
-  }
-
-  function handleNext() {
-    setPage(p => p+1);
-  }
-
+//pass in data and render function into paginatedList component
   return (
     <div>
       {companies ? 
@@ -51,9 +51,9 @@ function CompanyList() {
           : 'Sorry, no results were found!'
           }
         </div>
-        {page > 1 && <button onClick={handlePrev}>Prev</button>}
+        {page > 1 && <Link to={`/companies?page=${+page-1}`}>Prev</Link>}
         <p>Page {page}/{calcMaxPages()}</p>
-        {page < calcMaxPages() && <button onClick={handleNext}>Next</button>}
+        {page < calcMaxPages() && <Link to={`/companies?page=${+page+1}`}>Next</Link>}
       </>
     : <h2>Loading...</h2>}
     </div>

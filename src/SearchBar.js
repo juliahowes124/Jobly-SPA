@@ -4,7 +4,6 @@ import JoblyApi from './api';
 function SearchBar({handleFilter, filterType}) {
   const [searchTerm, setSearchTerm] = useState('')
 
-
   function handleChange(evt) {
     setSearchTerm(evt.target.value);
   }
