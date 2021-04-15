@@ -5,6 +5,7 @@ import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import LoginForm from "./LoginForm";
 import ProfileForm from "./ProfileForm";
+import Profile from './Profile';
 import SignupForm from "./SignupForm";
 import Home from "./Home";
 import ProtectedRoute from "./ProtectedRoute"
@@ -22,8 +23,11 @@ function Routes() {
       <ProtectedRoute path="/jobs">
         <JobList />
       </ProtectedRoute>
-      <ProtectedRoute path="/profile">
+      <ProtectedRoute path="/profile/edit">
         <ProfileForm/>
+      </ProtectedRoute>
+      <ProtectedRoute path="/profile">
+        <Profile/>
       </ProtectedRoute>
       <Route path="/login">
         <LoginForm />
