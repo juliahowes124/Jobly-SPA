@@ -5,6 +5,7 @@
 import React, {useState, useCallback} from 'react';
 import JoblyApi from './api';
 import _ from "lodash";
+import {Form} from "react-bootstrap";
 
 
 function SearchBar({handleFilter, filterType}) {
@@ -29,9 +30,9 @@ function SearchBar({handleFilter, filterType}) {
   }
 
   return (
-    <form>
-      <input onChange={handleChange} value={searchTerm} placeholder="Enter search term"/>
-    </form>
+    <Form className="mx-auto">
+      <Form.Control onChange={handleChange} value={searchTerm} placeholder="Enter search term"/>
+    </Form>
   )
 
 }

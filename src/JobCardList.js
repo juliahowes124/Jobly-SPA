@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {useLocation, Link} from 'react-router-dom';
 import JobCard from './JobCard';
 import UserContext from "./userContext"
@@ -27,9 +27,11 @@ function JobCardList({jobs}) {
     {getPaginatedResults().map(job => {
       return <JobCard key={job.id} job={job} applied={currUser.applications.includes(job.id)}/>
     })}
-    {page > 1 && <Link to={`/jobs?page=${+page-1}`}>Prev</Link>}
-    <p>Page {page}/{calcMaxPages()}</p>
-    {page < calcMaxPages() && <Link to={`/jobs?page=${+page+1}`}>Next</Link>}
+    <div className="d-flex justify-content-between w-50 mx-auto my-2">
+      <Link style={{visibility: page>1 ? "visible" : "hidden"}} className="btn btn-primary" to={`/jobs?page=${+page-1}`}>Prev</Link>
+      <h5>Page {page}/{calcMaxPages()}</h5>
+      <Link style={{visibility: page<calcMaxPages() ? "visible" : "hidden"}} className="btn btn-primary" to={`/jobs?page=${+page+1}`}>Next</Link>
+    </div>
   </div>
     )
 }

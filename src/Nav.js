@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom"
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
-function Nav({ logout, currUser }) {
+function NavComponent({ logout, currUser }) {
   console.log(currUser);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <Navbar bg="light">
       <NavLink className="navbar-brand" exact to="/">Jobly</NavLink>
-      <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+      <Nav className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
         <ul className="navbar-nav">
           {currUser
             ? <><li className="nav-item">
@@ -36,9 +38,9 @@ function Nav({ logout, currUser }) {
 
 
         </ul>
-      </div>
-    </nav>
+      </Nav>
+    </Navbar>
   )
 }
 
-export default Nav;
+export default NavComponent;

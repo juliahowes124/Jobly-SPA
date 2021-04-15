@@ -1,5 +1,5 @@
 import Routes from "./Routes";
-import Nav from "./Nav";
+import NavComponent from "./Nav";
 import {BrowserRouter} from "react-router-dom";
 import {useEffect, useState} from "react"
 import "bootstrap/dist/css/bootstrap.css";
@@ -74,7 +74,7 @@ function App() {
     ) : (
     <div className="App">
       <BrowserRouter>
-        <Nav logout={logout} currUser={currentUser}/>
+        <NavComponent logout={logout} currUser={currentUser}/>
         <UserContext.Provider value={{login, register, currUser: currentUser, updateUser, applyToJob}}>
           <Routes/>
         </UserContext.Provider>

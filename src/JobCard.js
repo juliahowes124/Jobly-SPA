@@ -1,21 +1,26 @@
 import React, { useContext } from 'react';
 import UserContext from "./userContext"
+import { Card, Button } from "react-bootstrap";
 
 function JobCard({job, applied}) {
   const {title, salary, equity, companyName, id} = job;
   const {applyToJob} = useContext(UserContext);
 
 
-  return (<div>
-  <p>{title}</p>
-  <p>{companyName}</p>
-  <p>salary: {salary}</p>
-  <p>equity: {equity}</p>
-  { applied
-    ? <button disabled> Applied </button>
-    : <button onClick={() => applyToJob(id)}>Apply</button>
-  }
-</div>)
+  return (
+  <Card>
+    <Card.Body>
+      <Card.Title>{title}</Card.Title>
+      <Card.Subtitle>{companyName}</Card.Subtitle>
+      <Card.Text>salary: {salary}</Card.Text>
+      <Card.Text>equity: {equity}</Card.Text>
+      { applied
+        ? <Button variant="success" disabled> Applied </Button>
+        : <Button variant="success" onClick={() => applyToJob(id)}>Apply</Button>
+      }
+    </Card.Body>
+  </Card>
+)
 }
 
 export default JobCard;
