@@ -20,16 +20,16 @@ function JobList() {
 
   return (
     <div>
-      {jobs 
+      {jobs
         ? (<>
             <div>
               <SearchBar handleFilter={handleFilter} filterType="jobs" />
             </div>
             <div>
-              {jobs.length 
-              ? <JobCardList jobs={jobs} />
+              {jobs.length
+              ? <JobCardList jobs={jobs}/>
               : "Sorry, no results were found!"}
-              
+
             </div>
           </>)
       : <h2>Loading...</h2>
