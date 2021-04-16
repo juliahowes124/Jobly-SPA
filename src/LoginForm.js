@@ -55,8 +55,8 @@ function LoginForm() {
                     value={formData.password}
                     required={true}/>
             </FormGroup>
-            <Button variant="primary" className="float-right" type="submit">Submit</Button>
             {error && <Alert message={error}/>}
+            <Button variant="primary" className="float-right" type="submit">Submit</Button>
           </Form>
         </Col>
       </Row>

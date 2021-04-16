@@ -55,8 +55,8 @@ function SignupForm() {
                 )
               })
             }
-            <Button variant="primary" type="submit" className="float-right">Submit</Button>
             {error && <Alert message={error} />}
+            <Button variant="primary" type="submit" className="float-right">Submit</Button>
           </Form>
         </Col>
       </Row>

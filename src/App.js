@@ -2,7 +2,7 @@ import Routes from "./Routes";
 import NavComponent from "./Nav";
 import {BrowserRouter} from "react-router-dom";
 import {useEffect, useState} from "react"
-import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import JoblyApi from "./api"
 import jwt from "jsonwebtoken"
 import useLocalStorage from "./hooks/LocalStorageHook";

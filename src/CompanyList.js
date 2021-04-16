@@ -3,6 +3,7 @@ import {useLocation, Link, useHistory} from 'react-router-dom';
 import JoblyApi from './api';
 import CompanyCard from './CompanyCard';
 import SearchBar from './SearchBar';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function CompanyList() {
   const [companies, setCompanies] = useState(null);
@@ -39,24 +40,36 @@ function CompanyList() {
 
 //pass in data and render function into paginatedList component
   return (
-    <div>
+    <Container className="bg-light py-2 px-4 my-2">
       {companies ? 
       <>
-        <div>
-          <SearchBar handleFilter={handleFilter} filterType="companies"/>
-        </div>
-        <div>
-          {companies.length
-          ? getPaginatedResults().map(c => <CompanyCard key={c.handle} company={c}/>)
-          : 'Sorry, no results were found!'
-          }
-        </div>
-        {page > 1 && <Link to={`/companies?page=${+page-1}`}>Prev</Link>}
-        <p>Page {page}/{calcMaxPages()}</p>
-        {page < calcMaxPages() && <Link to={`/companies?page=${+page+1}`}>Next</Link>}
+        <Row className="my-3">
+          <Col className="mx-auto">
+            <SearchBar handleFilter={handleFilter} filterType="companies"/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {companies.length
+            ? getPaginatedResults().map(c => <CompanyCard key={c.handle} company={c}/>)
+            : 'Sorry, no results were found!'
+            }
+          </Col>
+        </Row>
+        <Row className="d-flex justify-content-between w-50 mx-auto my-2">
+          <Link style={{visibility: page>1 ? "visible" : "hidden"}} className="btn btn-primary" to={`/companies?page=${+page-1}`}>Prev</Link>
+          <h5>Page {page}/{calcMaxPages()}</h5>
+          <Link style={{visibility: page<calcMaxPages() ? "visible" : "hidden"}} className="btn btn-primary" to={`/companies?page=${+page+1}`}>Next</Link>
+        </Row>
       </>
-    : <h2>Loading...</h2>}
-    </div>
+    : 
+    <Row>
+      <Col className="mx-auto text-center">
+        <h2>Loading...</h2>
+      </Col>
+    </Row>
+    }
+    </Container>
   )
 }
 

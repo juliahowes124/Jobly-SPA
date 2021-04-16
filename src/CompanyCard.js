@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import {Card} from 'react-bootstrap';
 
 function CompanyCard({company}) {
   const {handle, name, description, logoUrl} = company;
@@ -9,12 +10,14 @@ function CompanyCard({company}) {
     history.push(`/companies/${handle}`);
   }
   
-//FIX LOGO
-  return <div onClick={handleClick}>
-    <p>{name}</p>
-    <p>{description}</p>
+  return <Card onClick={handleClick}>
+    <Card.Body>
+    <Card.Title>{name}</Card.Title>
+    <Card.Subtitle>{description}</Card.Subtitle>
     <img src={logoUrl}/> 
-  </div>
+    </Card.Body>
+  </Card>
 }
+
 
 export default CompanyCard;
